@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="text-center">
+    <h1 class="display-4">eBA Authentication Sistemi</h1>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+            <div class="alert alert-success mt-4">
+                <h4><i class="fas fa-check-circle"></i> Hoş geldiniz, @ViewBag.FullName!</h4>
+                <p>Başarıyla giriş yaptınız. Email: <strong>@ViewBag.UserName</strong></p>
+                <hr />
+                <p class="mb-0">
+                @Html.ActionLink("Dashboard'a Git", "Dashboard", "Home", null, new { @class = "btn btn-primary me-2" })
+
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-danger">
+                            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+                        </button>
+                    </form>
+                </p>
+            </div>
+    }
+    else
+    {
+            <p class="lead mt-4">Modern ve güvenli authentication sistemi</p>
+            <div class="mt-4">
+            @Html.ActionLink("Giriş Yap", "Login", "Account", null, new { @class = "btn btn-primary btn-lg" })
+            </div>
+
+            <div class="mt-4">
+                <h5>Demo Hesaplar:</h5>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-md-8">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Şifre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>admin@test.com</td>
+                                    <td>123456</td>
+                                </tr>
+                                <tr>
+                                    <td>user@ebatest.com</td>
+                                    <td>password123</td>
+                                </tr>
+                                <tr>
+                                    <td>demo@ebaauth.com</td>
+                                    <td>demo2024</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    }
+</div>

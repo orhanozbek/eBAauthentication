@@ -1,0 +1,502 @@
+﻿@model eBAauthentication.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Giriş Yap";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - eBA Authentication</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff4757 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(247, 147, 30, 0.3) 0%, transparent 50%);
+                z-index: -2;
+            }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: particleFloat 8s infinite ease-in-out;
+        }
+
+            .particle:nth-child(1) {
+                width: 6px;
+                height: 6px;
+                top: 20%;
+                left: 10%;
+                animation-delay: 0s;
+                animation-duration: 6s;
+            }
+
+            .particle:nth-child(2) {
+                width: 10px;
+                height: 10px;
+                top: 50%;
+                right: 20%;
+                animation-delay: 2s;
+                animation-duration: 8s;
+            }
+
+            .particle:nth-child(3) {
+                width: 4px;
+                height: 4px;
+                bottom: 30%;
+                left: 30%;
+                animation-delay: 4s;
+                animation-duration: 7s;
+            }
+
+            .particle:nth-child(4) {
+                width: 8px;
+                height: 8px;
+                top: 70%;
+                right: 10%;
+                animation-delay: 1s;
+                animation-duration: 9s;
+            }
+
+            .particle:nth-child(5) {
+                width: 5px;
+                height: 5px;
+                top: 10%;
+                right: 40%;
+                animation-delay: 3s;
+                animation-duration: 5s;
+            }
+
+        @@keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-100px) translateX(50px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 30px 60px rgba(255, 107, 53, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+            .login-container::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(135deg, #ff6b35, #f7931e, #ff4757);
+                border-radius: 27px;
+                z-index: -1;
+                opacity: 0.1;
+            }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+            .login-header h1 {
+                background: linear-gradient(135deg, #ff6b35, #f7931e);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 2.5rem;
+                font-weight: 800;
+                margin-bottom: 8px;
+                text-shadow: 0 2px 4px rgba(255, 107, 53, 0.1);
+            }
+
+            .login-header p {
+                color: #666;
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .glow-effect {
+            position: relative;
+        }
+
+            .glow-effect::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 15px;
+                background: linear-gradient(135deg, #ff6b35, #f7931e);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                z-index: -1;
+                filter: blur(10px);
+            }
+
+            .glow-effect:hover::after {
+                opacity: 0.3;
+            }
+
+        .form-control-custom {
+            width: 100%;
+            padding: 18px 20px 18px 55px;
+            border: 2px solid rgba(255, 107, 53, 0.2);
+            border-radius: 15px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.1);
+        }
+
+            .form-control-custom:focus {
+                border-color: #ff6b35;
+                background: #fff;
+                box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15), 0 8px 25px rgba(255, 107, 53, 0.2);
+                transform: translateY(-3px);
+            }
+
+            .form-control-custom::placeholder {
+                color: #999;
+                font-weight: 400;
+            }
+
+        .form-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff6b35;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .form-control-custom:focus + .form-icon {
+            color: #f7931e;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .form-check-input {
+            accent-color: #ff6b35;
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+        }
+
+        .form-check-label {
+            color: #555;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff4757 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+
+            .btn-login:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 15px 35px rgba(255, 107, 53, 0.4);
+                background: linear-gradient(135deg, #f7931e 0%, #ff6b35 50%, #ff4757 100%);
+            }
+
+            .btn-login:active {
+                transform: translateY(-2px);
+            }
+
+            .btn-login::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                transition: left 0.6s;
+            }
+
+            .btn-login:hover::before {
+                left: 100%;
+            }
+
+        .validation-summary-errors {
+            background: linear-gradient(135deg, #ffe0e0, #ffebee);
+            color: #d32f2f;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ff4757;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.1);
+        }
+
+            .validation-summary-errors ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+        .field-validation-error {
+            color: #ff4757;
+            font-size: 12px;
+            margin-top: 8px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #ff6b35;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+            .password-toggle:hover {
+                color: #f7931e;
+                transform: translateY(-50%) scale(1.1);
+            }
+
+        .forgot-link {
+            color: #ff6b35 !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .forgot-link:hover {
+                color: #f7931e !important;
+                text-decoration: underline;
+            }
+
+        @@media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .login-container {
+                padding: 30px 25px;
+                max-width: 100%;
+            }
+
+            .login-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-header">
+            <h1><i class="fas fa-fire" style="margin-right: 15px;"></i>eBA Fire</h1>
+            <p>Güçlü ve dinamik giriş sistemi</p>
+        </div>
+
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, true, new { id = "loginForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+
+            <div class="form-group glow-effect">
+                @Html.TextBoxFor(m => m.Email, new
+                    {
+                        @class = "form-control-custom",
+                        placeholder = "Email adresinizi giriniz",
+                        autocomplete = "email"
+                    })
+                <i class="fas fa-envelope form-icon"></i>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "field-validation-error" })
+            </div>
+
+            <div class="form-group glow-effect">
+                @Html.PasswordFor(m => m.Password, new
+                    {
+                        @class = "form-control-custom",
+                        placeholder = "Şifrenizi giriniz",
+                        autocomplete = "current-password"
+                    })
+                <i class="fas fa-lock form-icon"></i>
+                <i class="fas fa-eye password-toggle" onclick="togglePassword()"></i>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "field-validation-error" })
+            </div>
+
+            <div class="form-check">
+                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input" })
+                @Html.LabelFor(m => m.RememberMe, new { @class = "form-check-label" })
+            </div>
+
+            <button type="submit" class="btn-login">
+                <i class="fas fa-rocket" style="margin-right: 10px;"></i>
+                Giriş Yap
+            </button>
+
+            <div class="text-center mt-4" style="margin-top: 20px;">
+                @Html.ActionLink("Şifrenizi mi unuttunuz?", "ForgotPassword", "Account", null, new
+                    {
+                        @class = "forgot-link"
+                    })
+            </div>
+        }
+
+        <div style="margin-top: 25px; padding: 20px; border-radius: 15px; background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1)); border: 1px solid rgba(255, 107, 53, 0.2);">
+            <div style="text-align: center;">
+                <div style="color: #ff6b35; font-weight: 600; margin-bottom: 10px;">
+                    <i class="fas fa-user-shield" style="margin-right: 5px;"></i>
+                    <strong>Demo Hesaplar</strong>
+                </div>
+                <div style="font-size: 13px; color: #666;">
+                    <div style="margin-bottom: 5px;"><strong>admin@test.com</strong> / 123456</div>
+                    <div><strong>user@ebatest.com</strong> / password123</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById('Password');
+            const toggleIcon = document.querySelector('.password-toggle');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Form elementlerine hover efektleri
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.form-control-custom').forEach(input => {
+                input.addEventListener('focus', function () {
+                    this.parentElement.style.transform = 'scale(1.02)';
+                });
+
+                input.addEventListener('blur', function () {
+                    this.parentElement.style.transform = 'scale(1)';
+                });
+            });
+
+            // Form submit animasyonu
+            document.getElementById('loginForm').addEventListener('submit', function (e) {
+                const submitBtn = document.querySelector('.btn-login');
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 10px;"></i>Giriş yapılıyor...';
+                submitBtn.disabled = true;
+            });
+        });
+    </script>
+</body>
+</html>
